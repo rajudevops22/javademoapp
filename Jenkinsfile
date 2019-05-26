@@ -1,8 +1,8 @@
   node{
    def ansibleip = '192.168.1.111'
    def ansibleuser = 'raju'
-	  def test  = "ssh ${ansibleuser}@${ansibleip}  ls -lat /home/ec2-user"
-   def ansibledploy = 'ssh ${ansibleuser}@${ansibleip}  "ansible-playbook  /home/raju/deployartifacts/ansibleTomactDeployPlaybook.yaml --key-file "/home/raju/deploy-server-key.pem""'
+	  def test  = "ssh ${ansibleuser}@${ansibleip}  ls -lat /home/raju"
+   def ansibledploy = "ssh ${ansibleuser}@${ansibleip}  ansible-playbook  /home/raju/deployartifacts/ansibleTomactDeployPlaybook.yaml --key-file "/home/raju/deploy-server-key.pem""
    def copyWar = "scp -o StrictHostKeyChecking=no target/myweb.war ${ansibleuser}@${ansibleip}:/home/raju/deployartifacts"
    def copyansibleplaybook = "scp -o StrictHostKeyChecking=no ansibleTomactDeployPlaybook.yaml ${ansibleuser}@${ansibleip}:/home/raju/deployartifacts"
   
