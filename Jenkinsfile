@@ -1,9 +1,10 @@
   node{
-     def ansibleip = '192.168.1.111'
+   def ansibleip = '192.168.1.111'
    def ansibleuser = 'raju'
    //def stopTomcat = "ssh ${tomcatUser}@${tomcatIp} /opt/tomcat8/bin/shutdown.sh"
-   //def startTomcat = "ssh ${tomcatUser}@${tomcatIp} /opt/tomcat8/bin/startup.sh"
+    def ansibledploy = "ssh ${ansibleuser}@${ansibleip}  ansible-playbook  /home/raju/deployartifacts/ansibleTomactDeployPlaybook.yaml --key-file "/home/raju/deploy-server-key.pem""
    def copyWar = "scp -o StrictHostKeyChecking=no target/myweb.war ${ansibleuser}@${ansibleip}:/home/raju/deployartifacts"
+	  def copyansibleplaybook = "scp -o StrictHostKeyChecking=no ansibleTomactDeployPlaybook.yaml ${ansibleuser}@${ansibleip}:/home/raju/deployartifacts"
   
    stage('SCM Checkout'){
      git 'https://github.com/rajudevops22/javademoapp'
@@ -45,6 +46,7 @@ sshagent(['ansible-ckey']) {
 	sh 'pwd'
 	sh 'ls -lart'
   sh "${copyWar}"
+  sh "${copyansibleplaybook}"
 }
    
    stage('Build Docker Image'){
