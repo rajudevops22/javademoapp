@@ -1,21 +1,10 @@
 ---
-- hosts: tomcatServer
-  vars:
-  - warName: helloworld.war
-  - warRemotePath: /path/to/put/war
-
+- hosts: tomcat1
+  remote_user: ec2-user
+  become: yes
   tasks:
-  - name: Download WAR to server
-    synchronize: src={{ warLocalPath }}/{{ warName }} dest={{ warRemotePath }}/{{ warName }}
+      - name : deploying war file
+        copy : src=/home/raju/deployartifacts/myweb.war dest=/usr/share/tomcat/webapps/myweb.war
 
-  - name: Unzip WAR file
-    unarchive: src={{ warRemotePath }}/{{ warName }} dest=/var/lib/tomcat7/webapps/ROOT/ copy=no mode=0755 owner=tomcat7 group=tomcat7
-    notify:
-        - Restart tomcat7
-
-  - name: Delete remote war file
-    file: path={{ warRemotePath }}/{{ warName }} state=absent
-
-  handlers:
-    - name: Restart tomcat7
-      service: name=tomcat7 state=restarted
+      - name : restart the service
+        service : name=tomcat   state=restart
