@@ -6,10 +6,10 @@
    def copyWar = "scp -o StrictHostKeyChecking=no myweb.war ${ansibleuser}@${ansibleip}:/home/raju/deployartifacts"
   
    stage('SCM Checkout'){
-     git 'https://github.com/javahometech/my-app'
+     git 'https://github.com/rajudevops22/javademoapp'
    }
    stage('Compile-Package'){
-    
+
       def mvnHome =  tool name: 'Maven-3', type: 'maven'   
       sh "${mvnHome}/bin/mvn clean package"
    }
