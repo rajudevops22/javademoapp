@@ -22,8 +22,8 @@
   stage('SonarQube Analysis') {
         def mvnHome =  tool name: 'Maven-3', type: 'maven'
 		
-       def sonarhome = tool name: 'sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-       /* env.PATH = "${sonarhome}/bin:${env.PATH}"
+       /*def sonarhome = tool name: 'sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
+       env.PATH = "${sonarhome}/bin:${env.PATH}"
 	   sh "${sonarhome}/bin/sonar-scanner" 
 		     sh 'printenv' */
 			 
