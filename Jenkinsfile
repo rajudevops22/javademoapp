@@ -1,4 +1,6 @@
-  node{
+node{
+   try{
+   emailext body: 'Jenkins succ', subject: 'Starting Jenkins', to: 'raju.seeram22@gmail.com'
    def ansibleip = '192.168.1.111'
    def ansibleuser = 'raju'
    def ansibledploy = "ssh ${ansibleuser}@${ansibleip}  ansible-playbook  /home/raju/deployartifacts/ansibleTomactDeployPlaybook.yaml --key-file '/home/raju/deploy-server-key.pem'"
@@ -13,7 +15,7 @@
       def mvnHome =  tool name: 'Maven-3', type: 'maven'   
       sh "${mvnHome}/bin/mvn clean package -DskipTests=true"
    }
- /*
+
   stage('SonarQube Analysis') {
         def mvnHome =  tool name: 'Maven-3', type: 'maven'
 		
@@ -31,7 +33,7 @@
 stage('deploy to nexus'){
 	   def mvnHome =  tool name: 'Maven-3', type: 'maven'
        sh "${mvnHome}/bin/mvn deploy -DskipTests=true"
-   } */
+   } 
 stage ('deploy to tomcat'){
 sshagent(['ansible-server-key']) {
 	sh 'mv target/myweb*.war target/myweb.war' 
@@ -50,20 +52,22 @@ sshagent(['ansible-server-key']) {
 	   sh 'sudo docker build -t rajuseeram22/demoapp:0.0.1 .'
    }
 
-   stage('Upload Image to DockerHub'){
+/*   stage('Upload Image to DockerHub'){
 	 def dockerhome =  tool name: 'docker', type: 'org.jenkinsci.plugins.docker.commons.tools.DockerTool'
 	 env.PATH = "${dockerhome}/bin:${env.PATH}"
     withCredentials([usernameColonPassword(credentialsId: 'docker-hub', variable: 'password')]) {
       sh "sudo docker login -u rajuseeram22 -p ${password}"
     }
     sh 'sudo docker push rajuseeram22/demoapp:0.0.1'
-  }
-	
-	
-   stage('Email Notification'){
+  } */
+ }
+	catch (err) {
+	emailext body: "$(err)", subject: 'Failure', to: 'raju.seeram22@gmail.com'
+    /*stage('Email Notification'){
       mail bcc: '', body: '''Hi Welcome to jenkins email alerts
       Thanks
-      Raju''', cc: '', from: '', replyTo: '', subject: 'Jenkins Job', to: 'raju.seeram22@gmail.com'
+      Raju''', cc: '', from: '', replyTo: '', subject: 'Jenkins Job', to: 'raju.seeram22@gmail.com' 
+   } */
    }
 }
 
