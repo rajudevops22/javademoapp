@@ -11,13 +11,8 @@
    stage('Compile-Package'){
 
       def mvnHome =  tool name: 'Maven-3', type: 'maven'   
-      sh "${mvnHome}/bin/mvn clean package"
+      sh "${mvnHome}/bin/mvn clean package -DskipTests=true"
    }
-
-  stage('test'){
-     def mvnHome =  tool name: 'Maven-3', type: 'maven'   
-      sh "${mvnHome}/bin/mvn test"
-   } 
 	  
   stage('SonarQube Analysis') {
         def mvnHome =  tool name: 'Maven-3', type: 'maven'
@@ -28,16 +23,18 @@
 		     sh 'printenv' */
 			 
         withSonarQubeEnv('sonarserver') { 
-          sh "${mvnHome}/bin/mvn  sonar:sonar"
+          sh "${mvnHome}/bin/mvn  sonar:sonar -DskipTests=true"
 	}
     }
-	
-stage('deploy to nexus'){
-	   def mvnHome =  tool name: 'Maven-3', type: 'maven'
-       sh "${mvnHome}/bin/mvn deploy"
+  stage('test'){
+     def mvnHome =  tool name: 'Maven-3', type: 'maven'   
+      sh "${mvnHome}/bin/mvn test"
    } 
-
-
+	
+/*stage('deploy to nexus'){
+	   def mvnHome =  tool name: 'Maven-3', type: 'maven'
+       sh "${mvnHome}/bin/mvn deploy -DskipTests=true"
+   } */
 sshagent(['ansible-ckey']) {
 	sh 'mv target/myweb*.war target/myweb.war' 
 	sh 'cd target'
