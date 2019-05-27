@@ -31,10 +31,10 @@
       sh "${mvnHome}/bin/mvn test"
    } 
 	
-/*stage('deploy to nexus'){
+stage('deploy to nexus'){
 	   def mvnHome =  tool name: 'Maven-3', type: 'maven'
        sh "${mvnHome}/bin/mvn deploy -DskipTests=true"
-   } */
+   } 
 stage ('deploy to tomcat'){
 sshagent(['ansible-ckey']) {
 	sh 'mv target/myweb*.war target/myweb.war' 
