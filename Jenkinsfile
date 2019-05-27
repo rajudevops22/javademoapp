@@ -62,7 +62,7 @@ sshagent(['ansible-server-key']) {
   } */
  }
 	catch (err) {
-		emailext body: "${err}", subject: 'Failure', to: 'raju.seeram22@gmail.com'
+		emailext body: "${err} at Build numebr ${BUILD_NUMBER}", subject: 'Failure', to: 'raju.seeram22@gmail.com'
     /*stage('Email Notification'){
       mail bcc: '', body: '''Hi Welcome to jenkins email alerts
       Thanks
