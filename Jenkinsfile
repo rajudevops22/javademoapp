@@ -13,25 +13,22 @@
       def mvnHome =  tool name: 'Maven-3', type: 'maven'   
       sh "${mvnHome}/bin/mvn clean package -DskipTests=true"
    }
-	  
+ /*
   stage('SonarQube Analysis') {
         def mvnHome =  tool name: 'Maven-3', type: 'maven'
 		
-       /*def sonarhome = tool name: 'sonar', type: 'hudson.plugins.sonar.SonarRunnerInstallation'
-       env.PATH = "${sonarhome}/bin:${env.PATH}"
-	   sh "${sonarhome}/bin/sonar-scanner" 
-		     sh 'printenv' */
 			 
         withSonarQubeEnv('sonarserver') { 
           sh "${mvnHome}/bin/mvn  sonar:sonar -DskipTests=true"
 	}
     }
+
   stage('Unit Test'){
      def mvnHome =  tool name: 'Maven-3', type: 'maven'   
       sh "${mvnHome}/bin/mvn test"
    } 
 	
-/*stage('deploy to nexus'){
+stage('deploy to nexus'){
 	   def mvnHome =  tool name: 'Maven-3', type: 'maven'
        sh "${mvnHome}/bin/mvn deploy -DskipTests=true"
    } */
