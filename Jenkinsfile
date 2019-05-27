@@ -35,6 +35,7 @@
 	   def mvnHome =  tool name: 'Maven-3', type: 'maven'
        sh "${mvnHome}/bin/mvn deploy -DskipTests=true"
    } */
+stage ('deploy to tomcat'){
 sshagent(['ansible-ckey']) {
 	sh 'mv target/myweb*.war target/myweb.war' 
 	sh 'cd target'
@@ -43,6 +44,7 @@ sshagent(['ansible-ckey']) {
   sh "${copyWar}"
   sh "${copyansibleplaybook}"
   sh "${ansibledploy}"
+}
 }
    
    stage('Build Docker Image'){
