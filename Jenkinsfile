@@ -36,7 +36,7 @@
        sh "${mvnHome}/bin/mvn deploy -DskipTests=true"
    } */
 stage ('deploy to tomcat'){
-sshagent(['ansible-ckey']) {
+sshagent(['ansible-server-key']) {
 	sh 'mv target/myweb*.war target/myweb.war' 
 	sh 'cd target'
 	sh 'pwd'
