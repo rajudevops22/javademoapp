@@ -3,8 +3,11 @@
   remote_user: ec2-user
   become: yes
   tasks:
+     - name : stop the service
+        service : name=tomcat   state=stopped
+        
       - name : deploying war file
         copy : src=/home/raju/deployartifacts/myweb.war dest=/usr/share/tomcat/webapps/myweb.war
 
-      - name : restart the service
-        service : name=tomcat   state=restarted
+      - name : start the service
+        service : name=tomcat   state=started
