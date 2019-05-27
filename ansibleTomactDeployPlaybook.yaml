@@ -1,5 +1,5 @@
 ---
-- hosts: tomcat1
+- hosts: webserver
   remote_user: ec2-user
   become: yes
   tasks:
