@@ -61,8 +61,9 @@ sshagent(['ansible-server-key']) {
     sh 'sudo docker push rajuseeram22/demoapp:0.0.1'
   } */
  }
-	publishHTML(target: [allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'coverage', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: 'Report'])
+	
 	catch (err) {
+		publishHTML(target: [allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'coverage', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: 'Report'])
 		emailext body: "${err} at Build numebr ${BUILD_NUMBER}", subject: 'Failure', to: 'raju.seeram22@gmail.com'
     /*stage('Email Notification'){
       mail bcc: '', body: '''Hi Welcome to jenkins email alerts
