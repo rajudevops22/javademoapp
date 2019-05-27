@@ -71,6 +71,13 @@ sshagent(['ansible-server-key']) {
       Raju''', cc: '', from: '', replyTo: '', subject: 'Jenkins Job', to: 'raju.seeram22@gmail.com' 
    } */
    }
+	
+post {
+        always {
+            
+            junit '/target/surefire-reports/*.xml'
+        }
+		}
 }
 
 
