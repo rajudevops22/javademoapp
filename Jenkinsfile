@@ -26,7 +26,7 @@
           sh "${mvnHome}/bin/mvn  sonar:sonar -DskipTests=true"
 	}
     }
-  stage('test'){
+  stage('Unit Test'){
      def mvnHome =  tool name: 'Maven-3', type: 'maven'   
       sh "${mvnHome}/bin/mvn test"
    } 
