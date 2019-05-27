@@ -3,7 +3,7 @@
   remote_user: ec2-user
   become: yes
   tasks:
-     - name : stop the service
+      - name : stop the service
         service : name=tomcat   state=stopped
         
       - name : deploying war file
