@@ -1,6 +1,6 @@
 node{
    try{
-   emailext body: 'Jenkins succ', subject: 'Starting Jenkins', to: 'raju.seeram22@gmail.com'
+   emailext body: "Jenkins job started with build number ${BUILD_NUMBER}", subject: "Jenkins job started with ${BUILD_NUMBER}", to: 'raju.seeram22@gmail.com'
    def ansibleip = '192.168.1.111'
    def ansibleuser = 'raju'
    def ansibledploy = "ssh ${ansibleuser}@${ansibleip}  ansible-playbook  /home/raju/deployartifacts/ansibleTomactDeployPlaybook.yaml --key-file '/home/raju/deploy-server-key.pem'"
