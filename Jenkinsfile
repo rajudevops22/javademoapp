@@ -1,7 +1,7 @@
 node{
    try{
    emailext body: "Jenkins job started with build number ${BUILD_NUMBER}", subject: "Jenkins job started with ${BUILD_NUMBER}", to: 'raju.seeram22@gmail.com'
-   def ansibleip = '192.168.1.111'
+   def ansibleip = '192.168.1.95'
    def ansibleuser = 'raju'
    def ansibledploy = "ssh ${ansibleuser}@${ansibleip}  ansible-playbook  /home/raju/deployartifacts/ansibleTomactDeployPlaybook.yaml --key-file '/home/raju/deploy-server-key.pem'"
    def copyWar = "scp -o StrictHostKeyChecking=no target/myweb.war ${ansibleuser}@${ansibleip}:/home/raju/deployartifacts"
@@ -53,14 +53,14 @@ sshagent(['ansible-server-key']) {
 	   sh 'sudo docker build -t rajuseeram22/demoapp:0.0.1 .'
    }
 
-/*   stage('Upload Image to DockerHub'){
+  stage('Upload Image to DockerHub'){
 	 def dockerhome =  tool name: 'docker', type: 'org.jenkinsci.plugins.docker.commons.tools.DockerTool'
 	 env.PATH = "${dockerhome}/bin:${env.PATH}"
     withCredentials([usernameColonPassword(credentialsId: 'docker-hub', variable: 'password')]) {
       sh "sudo docker login -u rajuseeram22 -p ${password}"
     }
     sh 'sudo docker push rajuseeram22/demoapp:0.0.1'
-  } */
+  } 
  }
 	
 	catch (err) {
