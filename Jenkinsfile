@@ -54,14 +54,14 @@ stage('Build Docker Image'){
 	   sh 'sudo docker build -t rajuseeram22/demoapp:0.0.1 .'
    }
 
-  stage('Upload Image to DockerHub'){
+  /*stage('Upload Image to DockerHub'){
 	 def dockerhome =  tool name: 'docker', type: 'org.jenkinsci.plugins.docker.commons.tools.DockerTool'
 	 env.PATH = "${dockerhome}/bin:${env.PATH}"
 	  withCredentials([string(credentialsId: 'docker-pwd5', variable: 'docker-hub-pwd5')]) {
 		   sh "sudo docker login -u rajuseeram22 -p ${docker-hub-pwd5}"		   
 }
 	  sh 'sudo docker push rajuseeram22/demoapp:0.0.1'
-  }
+  } */
  	   
   
 
