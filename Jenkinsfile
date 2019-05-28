@@ -45,12 +45,12 @@ stage('Build Docker Image'){
   stage('Upload Image to DockerHub'){
 	 def dockerhome =  tool name: 'docker', type: 'org.jenkinsci.plugins.docker.commons.tools.DockerTool'
 	 env.PATH = "${dockerhome}/bin:${env.PATH}"
-    withCredentials([usernameColonPassword(credentialsId: 'docker-hub', variable: 'password')]) {
-      sh "sudo docker login -u rajuseeram22 -p ${password}"
-    }
-    sh 'sudo docker push rajuseeram22/demoapp:0.0.1'
-  } 
-	   
+	  withCredentials([string(credentialsId: 'docker-pwd5', variable: 'docker-hub-pwd5')]) {
+		   sh "sudo docker login -u rajuseeram22 -p ${docker-hub-pwd5}"		   
+}
+	  sh 'sudo docker push rajuseeram22/demoapp:0.0.1'
+  }
+ 	   
 stage ('deploy to tomcat'){
 sshagent(['ansible-server-key']) {
 	sh 'mv target/myweb*.war target/myweb.war' 
