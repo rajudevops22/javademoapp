@@ -28,6 +28,7 @@ node{
   stage('Unit Test'){
      def mvnHome =  tool name: 'Maven-3', type: 'maven'   
       sh "${mvnHome}/bin/mvn test"
+	junit 'target/surefire-reports/*.xml'
    } 
 	
 stage('deploy to nexus'){
