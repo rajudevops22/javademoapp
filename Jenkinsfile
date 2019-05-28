@@ -15,7 +15,7 @@ node{
       def mvnHome =  tool name: 'Maven-3', type: 'maven'   
       sh "${mvnHome}/bin/mvn clean package -DskipTests=true"
    }
-
+/*
   stage('SonarQube Analysis') {
         def mvnHome =  tool name: 'Maven-3', type: 'maven'
 		
@@ -35,6 +35,7 @@ stage('deploy to nexus'){
 	   def mvnHome =  tool name: 'Maven-3', type: 'maven'
        sh "${mvnHome}/bin/mvn deploy -DskipTests=true"
    } 
+   */
 	   
 stage('Build Docker Image'){
 	def dockerhome =  tool name: 'docker', type: 'org.jenkinsci.plugins.docker.commons.tools.DockerTool'
@@ -66,7 +67,7 @@ sshagent(['ansible-server-key']) {
 
  }
 	
-	catch (err) {
+/*	catch (err) {
 		//publishHTML(target: [allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: 'coverage', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: 'Report'])
 		emailext body: "${err} at Build numebr ${BUILD_NUMBER}", subject: 'Failure', to: 'raju.seeram22@gmail.com'
     /*stage('Email Notification'){
@@ -74,7 +75,7 @@ sshagent(['ansible-server-key']) {
       Thanks
       Raju''', cc: '', from: '', replyTo: '', subject: 'Jenkins Job', to: 'raju.seeram22@gmail.com' 
    } */
-   }
+   }*/
 	
 }
 
