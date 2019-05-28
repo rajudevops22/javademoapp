@@ -15,7 +15,7 @@ node{
       def mvnHome =  tool name: 'Maven-3', type: 'maven'   
       sh "${mvnHome}/bin/mvn clean package -DskipTests=true"
    }
-/*
+
   stage('SonarQube Analysis') {
         def mvnHome =  tool name: 'Maven-3', type: 'maven'
 		
@@ -35,7 +35,18 @@ stage('deploy to nexus'){
 	   def mvnHome =  tool name: 'Maven-3', type: 'maven'
        sh "${mvnHome}/bin/mvn deploy -DskipTests=true"
    } 
-   */
+stage ('deploy to tomcat'){
+sshagent(['ansible-server-key']) {
+	sh 'mv target/myweb*.war target/myweb.war' 
+	sh 'cd target'
+	sh 'pwd'
+	sh 'ls -lart'
+  sh "${copyWar}"
+  sh "${copyansibleplaybook}"
+  sh "${ansibledploy}"
+}
+}
+ 
 	   
 stage('Build Docker Image'){
 	def dockerhome =  tool name: 'docker', type: 'org.jenkinsci.plugins.docker.commons.tools.DockerTool'
@@ -52,18 +63,7 @@ stage('Build Docker Image'){
 	  sh 'sudo docker push rajuseeram22/demoapp:0.0.1'
   }
  	   
-stage ('deploy to tomcat'){
-sshagent(['ansible-server-key']) {
-	sh 'mv target/myweb*.war target/myweb.war' 
-	sh 'cd target'
-	sh 'pwd'
-	sh 'ls -lart'
-  sh "${copyWar}"
-  sh "${copyansibleplaybook}"
-  sh "${ansibledploy}"
-}
-}
-   
+  
 
  }
 	
